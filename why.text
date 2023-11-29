@@ -1,0 +1,51 @@
+﻿
+Why study sorting algorithms?
+
+Efficient sorting plays a crucial role in optimizing the performance of other algorithms that depend on sorted input data. It not only enhances the readability of output but also makes searching in a sorted list more manageable and efficient compared to an unsorted list.
+
+In summary, const is used to declare constants at runtime, while constexpr is employed for constants that can be evaluated at compile time. The latter provides the potential for better performance by moving computations from runtime to compile time when feasible.
+
+Can we demonstrate that the efficiency of Insertion Sort depends on the number of inversions?
+
+Certainly, the efficiency of Insertion Sort is demonstrated to depend on the number of inversions in the input array. An inversion occurs when two elements are out of order concerning the sought sorted sequence.
+
+Insertion Sort's efficiency is often measured in terms of execution time, which is influenced by the number of inversions in the input array. More inversions lead to a longer execution time for Insertion Sort.
+
+The demonstration is based on the fact that Insertion Sort works by moving elements one at a time to their correct positions. With many inversions, many elements are out of place, necessitating more swap and shift operations for correct positioning.
+
+Specifically, the runtime of Insertion Sort is quadratic concerning the number of inversions. If I is the number of inversions, then the runtime will be proportional to I^2 (O(I^2)).
+
+It's important to note that, although the number of inversions affects efficiency, Insertion Sort may still require quadratic time for disordered arrays. Sorting algorithms with better time complexity, such as Merge Sort or QuickSort, may be more efficient in many cases.
+
+The insertion sort algorithm builds the final sorted array one item at a time, making it efficient for small datasets, akin to other quadratic sorting algorithms.
+
+Bubble sort, the simplest sorting algorithm, works by repeatedly swapping adjacent elements if they are in the wrong order. Its time complexity is O(n^2).
+
+Why is algorithm analysis necessary?
+
+Understanding the efficiency of an algorithm is crucial for mission-critical tasks.
+
+What defines a better algorithm?
+
+A better algorithm is one that is faster (with less execution time) and uses less memory (lower space complexity).
+
+What is asymptotic algorithm analysis?
+
+In mathematical analysis, asymptotic analysis of an algorithm defines the mathematical boundaries of its runtime performance. It allows us to estimate best-case, average-case, and worst-case scenarios.
+
+Asymptotic algorithm analysis is used to estimate the time complexity function for arbitrary input. Time complexity demonstrates how the runtime behavior of a program increases as the input size grows.
+
+Big O notation is a formal mathematical way to express the upper bound (worst case) of an algorithm's running time. It measures the worst-case time complexity or the longest possible time an algorithm can take to complete.
+
+What is space complexity?
+
+Space complexity is the amount of memory space required by an algorithm or a computer program to solve a computational problem, as a function of the input size.
+
+Auxiliary space refers to the temporary space (excluding input size) allocated by an algorithm to solve the problem.
+
+Space complexity is the sum of the space used by the input and the auxiliary space.
+
+
+Merge sort: is a devide and conquer algorithm. merge sort is one of hte most efficient alogritms. time complexity is O(nlog(n)) but the space complexity is O(n^2)
+
+Quick sort: is a devide and conquer algorithm. it picks an element as pivot and partitions the given array around the picked pivot. time complexity is O(nlog(n)) but the space complexity is O(logn)
