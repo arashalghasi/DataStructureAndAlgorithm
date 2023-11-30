@@ -25,6 +25,8 @@ int main()
 		tree->InsertNode(32);
 		tree->InsertNode(48);
 		tree->PrintPreOrder();
+		std::cout << std::endl;
+		tree->PrintInOrder();
 	}
 	catch (const ExceptionCustom& e) {
 		std::cerr << e.what() << std::endl;
