@@ -9,18 +9,22 @@
 #include <random>
 #include "SearchAlgorithms.h"
 #include "SortAlgorithms.h"
+#include "BinaryTree.h"
 
 
 int main()
 {
 
 	try {
-		int arraynot_sorted5[] = { 1,5,3,2,4,0,0,1,3,3,4,6,2,2,5,6,2 };
-		SortAlgorithms::QuickSort3Way(arraynot_sorted5, 0, std::size(arraynot_sorted5)-1);
-		for (int i : arraynot_sorted5)
-		{
-			std::cout << i << " ";
-		}
+		BST* tree = new BST();
+		tree->InsertNode(30);
+		tree->InsertNode(18);
+		tree->InsertNode(10);
+		tree->InsertNode(25);
+		tree->InsertNode(43);
+		tree->InsertNode(32);
+		tree->InsertNode(48);
+		tree->PrintPreOrder();
 	}
 	catch (const ExceptionCustom& e) {
 		std::cerr << e.what() << std::endl;
