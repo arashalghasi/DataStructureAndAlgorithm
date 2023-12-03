@@ -27,6 +27,12 @@ int main()
 		tree->PrintPreOrder();
 		std::cout << std::endl;
 		tree->PrintInOrder();
+		std::cout << std::endl;
+		std::cout << std::endl;
+		std::cout << std::endl;
+		std::cout << std::endl;
+		std::cout << tree->IterativeSearch(60) << std::endl;
+		std::cout << tree->IterativeSearch(25) << std::endl;
 	}
 	catch (const ExceptionCustom& e) {
 		std::cerr << e.what() << std::endl;

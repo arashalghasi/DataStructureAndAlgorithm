@@ -72,6 +72,39 @@ public:
 		PrintInOrderInside(this->Root);
 	}
 
+	void PrintPostOrder()
+	{
+		PrintPostOrderInside(this->Root);
+	}
+
+
+	NodeTree* IterativeSearch(int value)
+	{
+		if (this->Root == nullptr)
+		{
+			return this->Root;
+		} else
+		{
+			NodeTree* temp = this->Root;
+			while(temp != nullptr)
+			{
+				if(temp->Data == value)
+				{
+					return temp;
+				} else if(temp->Data < value)
+				{
+					temp = temp->Right;
+				} else
+				{
+					temp = temp->Left;
+				}
+			}
+		}
+
+		return nullptr;
+
+	}
+
 	NodeTree* Root;
 
 private:
@@ -99,6 +132,19 @@ private:
 		PrintPreOrderInside(node->Left);
 		std::cout << node->Data << std::endl;
 		PrintPreOrderInside(node->Right);
+	}
+
+
+	void PrintPostOrderInside(NodeTree* node)
+	{
+		if (node == nullptr)
+		{
+			return;
+
+		}
+		PrintPreOrderInside(node->Left);
+		PrintPreOrderInside(node->Right);
+		std::cout << node->Data << std::endl;
 	}
 
 
