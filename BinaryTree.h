@@ -85,18 +85,21 @@ public:
 		if (this->Root == nullptr)
 		{
 			return this->Root;
-		} else
+		}
+		else
 		{
 			NodeTree* temp = this->Root;
-			while(temp != nullptr)
+			while (temp != nullptr)
 			{
-				if(temp->Data == value)
+				if (temp->Data == value)
 				{
 					return temp;
-				} else if(temp->Data < value)
+				}
+				else if (temp->Data < value)
 				{
 					temp = temp->Right;
-				} else
+				}
+				else
 				{
 					temp = temp->Left;
 				}
@@ -108,18 +111,19 @@ public:
 	}
 
 
-	 NodeTree* RecursiveSearch(NodeTree* node, int value)
+	NodeTree* RecursiveSearch(NodeTree* node, int value)
 	{
-		 if (node == nullptr || node->Data == value)
-		 {
-			 return node;
-		 }
-		 else if (node->Data > value)
+		if (node == nullptr || node->Data == value)
 		{
-		 		RecursiveSearch(node->Left, value);
-		} else
+			return node;
+		}
+		else if (node->Data > value)
 		{
-				RecursiveSearch(node->Right, value);
+			RecursiveSearch(node->Left, value);
+		}
+		else
+		{
+			RecursiveSearch(node->Right, value);
 		}
 	}
 
@@ -128,16 +132,22 @@ public:
 		if (node == nullptr)
 		{
 			return -1;
-		} else
+		}
+		else
 		{
 			int lheight = Height(node->Left);
 			int rheight = Height(node->Right);
-			if(lheight > rheight)
+			if (lheight > rheight)
 			{
 				return (lheight + 1);
-			} else
+			} else if (lheight < rheight)
 			{
+				
 				return (rheight + 1);
+			}
+			else
+			{
+				return lheight;
 			}
 		}
 	}
@@ -153,30 +163,35 @@ public:
 	}
 
 
-	NodeTree* DeleteNode(NodeTree* node , int value)
+	NodeTree* DeleteNode(NodeTree* node, int value)
 	{
 		if (node == nullptr)
 		{
 			return node;
-		} else if(node->Data> value)
+		}
+		else if (node->Data > value)
 		{
 			DeleteNode(node->Left, value);
-		} else if(node->Data < value)
+		}
+		else if (node->Data < value)
 		{
 			DeleteNode(node->Right, value);
-		} else //If value matches
+		}
+		else //If value matches
 		{
-			if(node->Left == nullptr) //Node with only right child or no child
+			if (node->Left == nullptr) //Node with only right child or no child
 			{
 				NodeTree* temp = node->Right;
 				delete(node);
 				return temp;
-			} else if (node->Right == nullptr) //Node with only left child or no child
+			}
+			else if (node->Right == nullptr) //Node with only left child or no child
 			{
 				NodeTree* temp = node->Left;
 				delete(node);
 				return temp;
-			} else // node wth two child
+			}
+			else // node wth two child
 			{
 				NodeTree* temp = minValueNode(node->Right);
 				node->Data = temp->Data;
@@ -190,45 +205,49 @@ public:
 	NodeTree* minValueNode(NodeTree* node)
 	{
 		NodeTree* current = node;
-		while(current->Left != nullptr)
+		while (current->Left != nullptr)
 		{
 			current = current->Left;
 		}
 		return current;
 	}
 
-	NodeTree* InsertRecursive(NodeTree* &node ,int value )
+	NodeTree* InsertRecursive(NodeTree* &node, int value)
 	{
 		NodeTree* NewNode = new NodeTree(value);
 		if (node == nullptr)
 		{
 			node = NewNode;
 			return node;
-		} else if (node->Data < value)
+		}
+		else if (node->Data < value)
 		{
-			InsertRecursive(node->Right, value);
-		} else if (node->Data > value)
+			node->Right = InsertRecursive(node->Right, value);
+		}
+		else if (node->Data > value)
 		{
-			InsertRecursive(node->Left, value);
+			node->Left = InsertRecursive(node->Left, value);
 		}
 		else
 		{
 			throw ExceptionCustom("No duplication is allowded!");
-			return node;
 		}
 
 		int balancedFactro = gerBalacedFactor(node);
 		if (balancedFactro > 1 && value < node->Left->Data)
 		{
 			return RightRotation(node);
-		} else if(balancedFactro < -1 && value > node->Right->Data)
+		}
+		else if (balancedFactro < -1 && value > node->Right->Data)
 		{
 			return LeftRotation(node);
-		} else if (balancedFactro > 1 && value > node->Right->Data)
+		}
+		else if (balancedFactro > 1 && value > node->Right->Data)
 		{
 			node->Left = LeftRotation(node->Left);
 			return RightRotation(node);
-		} else if(balancedFactro < -1 && value < node->Right->Data)
+		}
+		else if (balancedFactro < -1 && value < node->Right->Data)
 		{
 			node->Right = RightRotation(node->Right);
 			return LeftRotation(node);
@@ -243,25 +262,30 @@ public:
 		if (node == nullptr)
 		{
 			return node;
-		} else if (value < node->Data){
+		}
+		else if (value < node->Data) {
 			DeleteNode(node->Left, value);
-		} else if(value > node->Data)
+		}
+		else if (value > node->Data)
 		{
 			DeleteNode(node->Right, value);
-		} else // At this point we find the value 
+		}
+		else // At this point we find the value 
 		{
 			if (node->Left == nullptr) // Node with just right children
 			{
 				NodeTree* temp = node->Right;
 				delete node;
 				return temp;
-			} else if (node->Right == nullptr) // Node with just left children
+			}
+			else if (node->Right == nullptr) // Node with just left children
 			{
 				NodeTree* temp = node->Left;
 				delete node;
 				return temp;
 
-			} else // node with two children
+			}
+			else // node with two children
 			{
 				NodeTree* temp = minValueNode(node->Right);
 				node->Data = temp->Data;
@@ -271,24 +295,27 @@ public:
 
 		int balanceFactor = gerBalacedFactor(node);
 
-		if(balanceFactor == 2 && gerBalacedFactor(node->Left) >= 0)
+		if (balanceFactor == 2 && gerBalacedFactor(node->Left) >= 0)
 		{
 			return RightRotation(node);
-		} else if (balanceFactor == 2 && gerBalacedFactor(node->Left) == -1)
+		}
+		else if (balanceFactor == 2 && gerBalacedFactor(node->Left) == -1)
 		{
 			node->Left = LeftRotation(node->Left);
 			return RightRotation(node);
-		} else if (balanceFactor == -2 && gerBalacedFactor(node->Right) <= 0 )
+		}
+		else if (balanceFactor == -2 && gerBalacedFactor(node->Right) <= 0)
 		{
 			return LeftRotation(node);
-		} else if(balanceFactor == -2 && gerBalacedFactor(node->Right) == 1)
+		}
+		else if (balanceFactor == -2 && gerBalacedFactor(node->Right) == 1)
 		{
 			node->Right = RightRotation(node->Right);
 			LeftRotation(node);
 		}
 
 		return node;
-		
+
 	}
 
 	void print2D(NodeTree* node, int space) {
@@ -364,10 +391,11 @@ private:
 
 	int gerBalacedFactor(NodeTree* node)
 	{
-		if(node == nullptr)
+		if (node == nullptr)
 		{
-			return -1; 
-		} else
+			return -1;
+		}
+		else
 		{
 			return (Height(node->Left) - Height(node->Right));
 		}
