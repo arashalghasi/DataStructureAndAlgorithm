@@ -17,22 +17,14 @@ int main()
 
 	try {
 		BST* tree = new BST();
-		tree->InsertNode(30);
-		tree->InsertNode(18);
-		tree->InsertNode(10);
-		tree->InsertNode(25);
-		tree->InsertNode(43);
-		tree->InsertNode(32);
-		tree->InsertNode(48);
-		tree->PrintPreOrder();
-		std::cout << std::endl;
-		tree->PrintInOrder();
-		std::cout << std::endl;
-		std::cout << std::endl;
-		std::cout << std::endl;
-		std::cout << std::endl;
-		std::cout << tree->IterativeSearch(60) << std::endl;
-		std::cout << tree->IterativeSearch(25) << std::endl;
+		tree->InsertRecursive(tree->Root, 20);
+		tree->InsertRecursive(tree->Root, 25);
+		tree->InsertRecursive(tree->Root, 40);
+		tree->InsertRecursive(tree->Root, 10);
+		tree->InsertRecursive(tree->Root, 30);
+		tree->PrintLevelOrderBFS(tree->Root);
+		tree->print2D(tree->Root, 10);
+
 	}
 	catch (const ExceptionCustom& e) {
 		std::cerr << e.what() << std::endl;
