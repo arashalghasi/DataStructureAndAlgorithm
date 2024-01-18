@@ -10,37 +10,26 @@
 #include "SearchAlgorithms.h"
 #include "SortAlgorithms.h"
 #include "BinaryTree.h"
-
+#include "TransformAndConquer.h"
 
 int main()
 {
 
-	try {
-		BST* tree = new BST();
-		tree->InsertRecursive(tree->Root, 20);
-		tree->InsertRecursive(tree->Root, 25);
-		tree->InsertRecursive(tree->Root, 40);
-		tree->PrintLevelOrderBFS(tree->Root);
-		tree->print2D(tree->Root, 10);
-		tree->InsertRecursive(tree->Root, 10);
-		tree->InsertRecursive(tree->Root, 30);
-		//tree->InsertNode(20);
-		//tree->InsertNode(25);
-		//tree->InsertNode(40);
-		//tree->InsertNode(10);
-		//tree->InsertNode(30);
-		tree->PrintLevelOrderBFS(tree->Root);
-		tree->print2D(tree->Root, 10);
-
+	try
+	{
+		int numArr3[] = {1, 2, 3, 4, 5, 6, 1, 1, 4, 4, 4, 4};
+		const int size  = sizeof(numArr3)/sizeof(numArr3[0]);
+		int* numArr = SortAlgorithms::HeapSort(numArr3,size);
+		const int size2  = sizeof(numArr)/sizeof(numArr[0]);
+		for (int i = 0; i < 12; i++){
+			std::cout << numArr[i] << std::endl;
+		}
 	}
-	catch (const ExceptionCustom& e) {
+	catch (const ExceptionCustom &e)
+	{
 		std::cerr << e.what() << std::endl;
 		return EXIT_FAILURE;
 	}
 
 	return EXIT_SUCCESS;
-
 }
-
-
-

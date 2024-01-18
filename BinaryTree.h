@@ -1,25 +1,25 @@
 #ifndef BINARYTREE_H
 #define BINARYTREE_H
 #include <cstddef>
-#include  "Exception.h"
+#include "Exception.h"
 
 class NodeTree
 {
 public:
 	NodeTree() : Left(nullptr), Right(nullptr), Data(NULL) {}
 	NodeTree(int value) : Left(nullptr), Right(nullptr), Data(value) {}
-	NodeTree* Left;
-	NodeTree* Right;
+	NodeTree *Left;
+	NodeTree *Right;
 	int Data;
 };
-/*
- *@brief: The binary search tree
- **/
+
+/**
+ * @brief: The binary search tree
+ */
 class BST
 {
 public:
-	BST() :Root(nullptr) {}
-
+	BST() : Root(nullptr) {}
 
 	bool Empty()
 	{
@@ -32,14 +32,16 @@ public:
 
 	void InsertNode(int value)
 	{
-		NodeTree* NewNode = new NodeTree(value);
-		NodeTree* tmp = this->Root;
+		NodeTree *NewNode = new NodeTree(value);
+		NodeTree *tmp = this->Root;
 		if (tmp == nullptr)
 		{
 			this->Root = NewNode;
 		}
-		else {
-			while (tmp != nullptr) {
+		else
+		{
+			while (tmp != nullptr)
+			{
 
 				if (NewNode->Data == tmp->Data)
 				{
@@ -47,7 +49,8 @@ public:
 				}
 				else if (tmp->Data < NewNode->Data && tmp->Right == nullptr)
 				{
-					tmp->Right = NewNode; break;
+					tmp->Right = NewNode;
+					break;
 				}
 				else if (tmp->Data < NewNode->Data)
 				{
@@ -55,7 +58,8 @@ public:
 				}
 				else if (tmp->Data > NewNode->Data && tmp->Left == nullptr)
 				{
-					tmp->Left = NewNode; break;
+					tmp->Left = NewNode;
+					break;
 				}
 				else if (tmp->Data > NewNode->Data)
 				{
@@ -79,8 +83,7 @@ public:
 		PrintPostOrderInside(this->Root);
 	}
 
-
-	NodeTree* IterativeSearch(int value)
+	NodeTree *IterativeSearch(int value)
 	{
 		if (this->Root == nullptr)
 		{
@@ -88,7 +91,7 @@ public:
 		}
 		else
 		{
-			NodeTree* temp = this->Root;
+			NodeTree *temp = this->Root;
 			while (temp != nullptr)
 			{
 				if (temp->Data == value)
@@ -107,11 +110,9 @@ public:
 		}
 
 		return nullptr;
-
 	}
 
-
-	NodeTree* RecursiveSearch(NodeTree* node, int value)
+	NodeTree *RecursiveSearch(NodeTree *node, int value)
 	{
 		if (node == nullptr || node->Data == value)
 		{
@@ -127,7 +128,7 @@ public:
 		}
 	}
 
-	int Height(NodeTree* node)
+	int Height(NodeTree *node)
 	{
 		if (node == nullptr)
 		{
@@ -140,9 +141,10 @@ public:
 			if (lheight > rheight)
 			{
 				return (lheight + 1);
-			} else if (lheight < rheight)
+			}
+			else if (lheight < rheight)
 			{
-				
+
 				return (rheight + 1);
 			}
 			else
@@ -152,8 +154,7 @@ public:
 		}
 	}
 
-
-	void PrintLevelOrderBFS(NodeTree* node)
+	void PrintLevelOrderBFS(NodeTree *node)
 	{
 		int height = Height(node);
 		for (int level = 0; level <= height; level++)
@@ -162,8 +163,7 @@ public:
 		}
 	}
 
-
-	NodeTree* DeleteNode(NodeTree* node, int value)
+	NodeTree *DeleteNode(NodeTree *node, int value)
 	{
 		if (node == nullptr)
 		{
@@ -177,23 +177,23 @@ public:
 		{
 			DeleteNode(node->Right, value);
 		}
-		else //If value matches
+		else // If value matches
 		{
-			if (node->Left == nullptr) //Node with only right child or no child
+			if (node->Left == nullptr) // Node with only right child or no child
 			{
-				NodeTree* temp = node->Right;
-				delete(node);
+				NodeTree *temp = node->Right;
+				delete (node);
 				return temp;
 			}
-			else if (node->Right == nullptr) //Node with only left child or no child
+			else if (node->Right == nullptr) // Node with only left child or no child
 			{
-				NodeTree* temp = node->Left;
-				delete(node);
+				NodeTree *temp = node->Left;
+				delete (node);
 				return temp;
 			}
 			else // node wth two child
 			{
-				NodeTree* temp = minValueNode(node->Right);
+				NodeTree *temp = minValueNode(node->Right);
 				node->Data = temp->Data;
 				node->Right = DeleteNode(node->Right, temp->Data);
 			}
@@ -201,10 +201,9 @@ public:
 		return node;
 	}
 
-
-	NodeTree* minValueNode(NodeTree* node)
+	NodeTree *minValueNode(NodeTree *node)
 	{
-		NodeTree* current = node;
+		NodeTree *current = node;
 		while (current->Left != nullptr)
 		{
 			current = current->Left;
@@ -212,9 +211,9 @@ public:
 		return current;
 	}
 
-	NodeTree* InsertRecursive(NodeTree* &node, int value)
+	NodeTree *InsertRecursive(NodeTree *&node, int value)
 	{
-		NodeTree* NewNode = new NodeTree(value);
+		NodeTree *NewNode = new NodeTree(value);
 		if (node == nullptr)
 		{
 			node = NewNode;
@@ -256,38 +255,38 @@ public:
 		return node;
 	}
 
-	//AVL tree deleteNode with re-balancing
-	NodeTree* DeleteNodeAvl(NodeTree* node, int value)
+	// AVL tree deleteNode with re-balancing
+	NodeTree *DeleteNodeAvl(NodeTree *node, int value)
 	{
 		if (node == nullptr)
 		{
 			return node;
 		}
-		else if (value < node->Data) {
+		else if (value < node->Data)
+		{
 			DeleteNode(node->Left, value);
 		}
 		else if (value > node->Data)
 		{
 			DeleteNode(node->Right, value);
 		}
-		else // At this point we find the value 
+		else // At this point we find the value
 		{
 			if (node->Left == nullptr) // Node with just right children
 			{
-				NodeTree* temp = node->Right;
+				NodeTree *temp = node->Right;
 				delete node;
 				return temp;
 			}
 			else if (node->Right == nullptr) // Node with just left children
 			{
-				NodeTree* temp = node->Left;
+				NodeTree *temp = node->Left;
 				delete node;
 				return temp;
-
 			}
 			else // node with two children
 			{
-				NodeTree* temp = minValueNode(node->Right);
+				NodeTree *temp = minValueNode(node->Right);
 				node->Data = temp->Data;
 				node->Right = DeleteNode(node->Right, temp->Data);
 			}
@@ -315,64 +314,58 @@ public:
 		}
 
 		return node;
-
 	}
 
-	void print2D(NodeTree* node, int space) {
+	void print2D(NodeTree *node, int space)
+	{
 		if (node == nullptr) // Base case  1
 			return;
-		space += 10; // Increase distance between levels   2
-		print2D(node->Right, space); // Process right child first 3 
+		space += 10;				 // Increase distance between levels   2
+		print2D(node->Right, space); // Process right child first 3
 		std::cout << std::endl;
-		for (int i = 10; i < space; i++) // 5 
-			std::cout << " "; // 5.1  
+		for (int i = 10; i < space; i++) // 5
+			std::cout << " ";			 // 5.1
 		std::cout << node->Data << "\n"; // 6
-		print2D(node->Left, space); // Process left child  7
+		print2D(node->Left, space);		 // Process left child  7
 	}
-	NodeTree* Root;
+	NodeTree *Root;
 
 private:
-
-	//node-left-right
-	void PrintPreOrderInside(NodeTree* node)
+	// node-left-right
+	void PrintPreOrderInside(NodeTree *node)
 	{
 		if (node == nullptr)
 		{
 			return;
-
 		}
 		std::cout << node->Data << std::endl;
 		PrintPreOrderInside(node->Left);
 		PrintPreOrderInside(node->Right);
 	}
 
-	void PrintInOrderInside(NodeTree* node)
+	void PrintInOrderInside(NodeTree *node)
 	{
 		if (node == nullptr)
 		{
 			return;
-
 		}
 		PrintPreOrderInside(node->Left);
 		std::cout << node->Data << std::endl;
 		PrintPreOrderInside(node->Right);
 	}
 
-
-	void PrintPostOrderInside(NodeTree* node)
+	void PrintPostOrderInside(NodeTree *node)
 	{
 		if (node == nullptr)
 		{
 			return;
-
 		}
 		PrintPreOrderInside(node->Left);
 		PrintPreOrderInside(node->Right);
 		std::cout << node->Data << std::endl;
 	}
 
-
-	void PrintGivenLevel(NodeTree* node, int level)
+	void PrintGivenLevel(NodeTree *node, int level)
 	{
 		if (node == nullptr)
 		{
@@ -389,7 +382,7 @@ private:
 		}
 	}
 
-	int gerBalacedFactor(NodeTree* node)
+	int gerBalacedFactor(NodeTree *node)
 	{
 		if (node == nullptr)
 		{
@@ -401,29 +394,121 @@ private:
 		}
 	}
 
-
-	NodeTree* RightRotation(NodeTree* node)
+	NodeTree *RightRotation(NodeTree *node)
 	{
-		NodeTree* x = node->Left;
-		NodeTree* T2 = x->Right;
+		NodeTree *x = node->Left;
+		NodeTree *T2 = x->Right;
 
-		//We preform the rotation
+		// We preform the rotation
 		x->Right = node;
 		node->Left = T2;
 		return x;
 	}
 
-	NodeTree* LeftRotation(NodeTree* node)
+	NodeTree *LeftRotation(NodeTree *node)
 	{
-		NodeTree* x = node->Right;
-		NodeTree* T2 = x->Left;
-		//Performing ther rotation
+		NodeTree *x = node->Right;
+		NodeTree *T2 = x->Left;
+		// Performing ther rotation
 		x->Left = node;
 		node->Right = T2;
 		return x;
 	}
+};
+
+class Heap
+{
+
+public:
+
+	Heap()
+	{
+		this->Table = nullptr;
+		this->Size = 0;
+	}
+
+	/**
+	 * @brief
+	 * The algorithm to build max heap and the efficiency of it is O(n)
+	 */
+	  Heap *BuildMaxHeap(int A[], int size)
+	{
+		Heap *heap = new Heap();
+		heap->Size = size;
+		heap->Table = new int[size + 1];
+
+		for (int j = 0; j < size ; j++)
+		{
+			heap->Table[j + 1] = A[j];
+			//std::cout << heap->Table[j+1] << " index is: "<< j+ 1<<  " :" << A[j] << std::endl;
+		}
+		// we check the half of the size of the table because the half of the table are the leaf and they are automatically right
+		for (int i = this->Size / 2; i > 0; i--)
+		{
+			HeapSink(heap, i);
+		}
+
+		return heap;
+	}
+
+	 int Left(int node)
+	{
+		return node * 2;
+	}
+
+	 int Right(int node)
+	{
+		return (node * 2) + 1;
+	}
+
+	 int Parent(int node)
+	{
+		return node / 2;
+	}
+
+	/**
+	 * @brief
+	 * The algorithm to balance the binary heap in case of violation of on node, the efficiency of it is O(logn)
+	 */
+	 void HeapSink(Heap *heap, int errorNode)
+	{
+		int container;
+		int size = heap->Size;
+		int left = Left(errorNode);
+		int right = Right(errorNode);
+		if (left <= size && heap->Table[left] > heap->Table[errorNode])
+		{
+			container = left;
+		}
+		else
+		{
+			container = errorNode;
+		}
+
+		if (right <= size && heap->Table[right] > heap->Table[container])
+		{
+			container = right;
+		}
+
+		if (container != errorNode)
+		{
+			Swap(Table, errorNode, container);
+			HeapSink(heap, container);
+		}
+	}
 
 
+
+	 int* Table;
+	 int Size; // Maximum number of elements in heap
+	 int heapSize; //current number of elements in heap
+
+private:
+	 void Swap(int A[], const int i, const int j)
+	{
+		const int Container = A[i];
+		A[i] = A[j];
+		A[j] = Container;
+	}
 };
 #endif
-

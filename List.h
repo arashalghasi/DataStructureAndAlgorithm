@@ -55,20 +55,6 @@ public:
 		}
 	}
 
-	//void InsertFront(List<T> list) {
-	//	List<T>* newList = &list;
-	//	newNode->_Next = this->_Head;
-	//	newNode->_Prev = nullptr;
-	//	if (Empty()) {
-	//		this->_Tail = newNode;
-	//		this->_Head = newNode;
-	//	}
-	//	else {
-	//		this->_Head->_Prev = newNode;
-	//		this->_Head = newNode;
-	//	}
-	//}
-
 	void InsertBack(T item) {
 		Node<T>* newNode = new Node<T>(item);
 		newNode->_Next = nullptr;

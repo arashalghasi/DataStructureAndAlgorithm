@@ -1,5 +1,7 @@
 #ifndef SORTALGORITHMS_H
 #define SORTALGORITHMS_H
+#include "BinaryTree.h"
+
 class SortAlgorithms
 {
 public:
@@ -40,6 +42,21 @@ public:
 		}
 		QuickSort3Way(A, low, lt - 1);
 		QuickSort3Way(A, gt + 1, high);
+	}
+
+	/**
+	* @brief
+	* The The heap Sort is a sort with the efficiency of O(n)
+	*/
+	static int* HeapSort(int item[], const int size){
+		auto heap = new Heap();
+		auto heap2 = heap->BuildMaxHeap(item, size);
+		for (int i = size; i> 1; i--){
+			Swap(heap2->Table,1,i);
+			heap2->Size = heap2->Size -1;
+			heap2->HeapSink(heap2,1);
+		}
+		return heap2->Table;
 	}
 
 	/**
