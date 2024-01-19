@@ -17,12 +17,13 @@ int main()
 
 	try
 	{
-		int numArr3[] = {1, 2, 3, 4, 5, 6, 1, 1, 4, 4, 4, 4};
+		int numArr3[] = {10, 2, 3, 22, 5, 6, 1, 1, 13, 4, 4, 4};
 		const int size  = sizeof(numArr3)/sizeof(numArr3[0]);
-		int* numArr = SortAlgorithms::HeapSort(numArr3,size);
-		const int size2  = sizeof(numArr)/sizeof(numArr[0]);
-		for (int i = 0; i < 12; i++){
-			std::cout << numArr[i] << std::endl;
+		Heap* heap = new Heap();
+		heap->BuildMaxHeap(numArr3,size);
+		SortAlgorithms::HeapSort(numArr3,size);
+		for (auto ele : numArr3){
+			std::cout << ele << " ";
 		}
 	}
 	catch (const ExceptionCustom &e)

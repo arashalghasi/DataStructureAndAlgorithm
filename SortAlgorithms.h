@@ -46,17 +46,18 @@ public:
 
 	/**
 	* @brief
-	* The The heap Sort is a sort with the efficiency of O(n)
+	* The The heap Sort is a sort with the efficiency of O(nlogn)
 	*/
-	static int* HeapSort(int item[], const int size){
-		auto heap = new Heap();
-		auto heap2 = heap->BuildMaxHeap(item, size);
-		for (int i = size; i> 1; i--){
-			Swap(heap2->Table,1,i);
-			heap2->Size = heap2->Size -1;
-			heap2->HeapSink(heap2,1);
+	static void HeapSort(int item[], const int size){
+		Heap* heap = new Heap();
+		heap->BuildMaxHeap(item, size);
+		for (int i = size; i > 0; i--){
+			item[i-1] = heap->Table[1];
+			Swap(heap->Table,1,i);
+			heap->Size -= 1;
+			//heap->BuildMaxHeap(heap->Table,i);
+			heap->HeapSink(1);
 		}
-		return heap2->Table;
 	}
 
 	/**

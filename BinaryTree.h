@@ -420,7 +420,6 @@ class Heap
 {
 
 public:
-
 	Heap()
 	{
 		this->Table = nullptr;
@@ -431,52 +430,87 @@ public:
 	 * @brief
 	 * The algorithm to build max heap and the efficiency of it is O(n)
 	 */
-	  Heap *BuildMaxHeap(int A[], int size)
+	void *BuildMaxHeap(int A[], int size)
 	{
-		Heap *heap = new Heap();
-		heap->Size = size;
-		heap->Table = new int[size + 1];
+		this->Size = size;
+		this->Table = new int[size + 1];
 
-		for (int j = 0; j < size ; j++)
+		for (int j = 0; j < size; j++)
 		{
-			heap->Table[j + 1] = A[j];
-			//std::cout << heap->Table[j+1] << " index is: "<< j+ 1<<  " :" << A[j] << std::endl;
+			this->Table[j + 1] = A[j];
+			// std::cout << heap->Table[j+1] << " index is: "<< j+ 1<<  " :" << A[j] << std::endl;
 		}
 		// we check the half of the size of the table because the half of the table are the leaf and they are automatically right
 		for (int i = this->Size / 2; i > 0; i--)
 		{
-			HeapSink(heap, i);
+			HeapSink(i);
 		}
 
-		return heap;
+		this->maxHeap = true;
 	}
 
-	 int Left(int node)
+	int Left(int node)
 	{
 		return node * 2;
 	}
 
-	 int Right(int node)
+	int Right(int node)
 	{
 		return (node * 2) + 1;
 	}
 
-	 int Parent(int node)
+	int Parent(int node)
 	{
 		return node / 2;
+	}
+
+	int getMax()
+	{
+		if (this->maxHeap)
+		{
+			return Table[1];
+		}
+		else
+		{
+			throw ExceptionCustom("The heap is not a max heap!");
+		}
+	}
+
+	int getMin()
+	{
+		if (!this->maxHeap)
+		{
+			return this->Table[1];
+		}
+		else
+		{
+			throw ExceptionCustom("The heap is not a min heap!");
+		}
+	}
+
+	void getType()
+	{
+		if (this->maxHeap)
+		{
+			std::cout << "It is a max heap" << std::endl;
+		}
+		else
+		{
+			std::cout << "It is a min heap" << std::endl;
+		}
 	}
 
 	/**
 	 * @brief
 	 * The algorithm to balance the binary heap in case of violation of on node, the efficiency of it is O(logn)
 	 */
-	 void HeapSink(Heap *heap, int errorNode)
+	void HeapSink(int errorNode)
 	{
 		int container;
-		int size = heap->Size;
+		int size = this->Size;
 		int left = Left(errorNode);
 		int right = Right(errorNode);
-		if (left <= size && heap->Table[left] > heap->Table[errorNode])
+		if (left <= size && this->Table[left] > this->Table[errorNode])
 		{
 			container = left;
 		}
@@ -485,26 +519,35 @@ public:
 			container = errorNode;
 		}
 
-		if (right <= size && heap->Table[right] > heap->Table[container])
+		if (right <= size && this->Table[right] > this->Table[container])
 		{
 			container = right;
 		}
 
 		if (container != errorNode)
 		{
-			Swap(Table, errorNode, container);
-			HeapSink(heap, container);
+			Swap(this->Table, errorNode, container);
+			HeapSink(container);
 		}
 	}
 
+	void PrintTable()
+	{
+		std::cout << std::endl;
+		for (int i = 1; i < this->Size + 1; i++)
+		{
+			std::cout << this->Table[i] << " ";
+		}
+		std::cout << std::endl;
+	}
 
-
-	 int* Table;
-	 int Size; // Maximum number of elements in heap
-	 int heapSize; //current number of elements in heap
+	int *Table;
+	int Size;	  // Maximum number of elements in heap
+	int heapSize; // current number of elements in heap
+	bool maxHeap;
 
 private:
-	 void Swap(int A[], const int i, const int j)
+	void Swap(int A[], const int i, const int j)
 	{
 		const int Container = A[i];
 		A[i] = A[j];
